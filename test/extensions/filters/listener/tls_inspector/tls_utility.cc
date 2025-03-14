@@ -13,7 +13,7 @@ std::vector<uint8_t> generateClientHello(uint16_t tls_min_version, uint16_t tls_
                                          const std::string& sni_name, const std::string& alpn) {
   bssl::UniquePtr<SSL_CTX> ctx(SSL_CTX_new(TLS_with_buffers_method()));
 
-  SSL_CTX_set_min_proto_version(ctx.get(), tls_min_version);
+  SSL_CTX_set_min_proto_version(ctx.get(), TLS1_2_VERSION);
   SSL_CTX_set_max_proto_version(ctx.get(), tls_max_version);
 
   bssl::UniquePtr<SSL> ssl(SSL_new(ctx.get()));

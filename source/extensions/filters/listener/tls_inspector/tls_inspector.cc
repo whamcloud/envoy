@@ -26,7 +26,7 @@ namespace ListenerFilters {
 namespace TlsInspector {
 
 // Min/max TLS version recognized by the underlying TLS/SSL library.
-const unsigned Config::TLS_MIN_SUPPORTED_VERSION = TLS1_VERSION;
+const unsigned Config::TLS_MIN_SUPPORTED_VERSION = TLS1_2_VERSION;
 const unsigned Config::TLS_MAX_SUPPORTED_VERSION = TLS1_3_VERSION;
 
 Config::Config(
