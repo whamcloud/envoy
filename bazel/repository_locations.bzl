@@ -274,6 +274,26 @@ REPOSITORY_LOCATIONS_SPEC = dict(
         release_date = "2021-06-07",
         cpe = "cpe:2.3:a:grpc:grpc:*",
     ),
+    com_github_unicode_org_icu = dict(
+        project_name = "ICU Library",
+        project_desc = "Development files for International Components for Unicode",
+        project_url = "https://github.com/unicode-org/icu",
+        # When this is updated, make sure to update the icu.patch patch file and remove
+        # all remaining Bazel build artifacts (for example WORKSPACE and BUILD.bazel files)
+        # from the icu source code, to prevent Bazel from treating the foreign library
+        # as a Bazel project.
+        # https://github.com/envoyproxy/envoy/issues/26395
+        version = "72-1",
+        sha256 = "43cbad628d98f37a3f95f6c34579f9144ef4bde60248fa6004a4f006d7487e69",
+        strip_prefix = "icu-release-{version}",
+        urls = ["https://github.com/unicode-org/icu/archive/release-{version}.tar.gz"],
+        use_category = ["dataplane_ext"],
+        extensions = ["envoy.filters.http.language"],
+        release_date = "2022-10-18",
+        cpe = "N/A",
+        license = "ICU",
+        license_url = "https://github.com/unicode-org/icu/blob/release-{version}/icu4c/LICENSE",
+    ),
     com_github_intel_ipp_crypto_crypto_mb = dict(
         project_name = "libipp-crypto",
         project_desc = "Intel® Integrated Performance Primitives Cryptography",
