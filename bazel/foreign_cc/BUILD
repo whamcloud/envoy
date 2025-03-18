@@ -103,6 +103,51 @@ configure_make(
     tags = ["skip_on_windows"],
 )
 
+# ICU used by the language detection filter (i18n).
+# Generates a minimal configuration and reduces the size of the ICU locale data filter file.
+# https://unicode-org.github.io/icu/userguide/icu_data/buildtool.html
+configure_make(
+    name = "unicode_icu_build",
+    build_data = ["//bazel/foreign_cc:icu_data_filter.json"],
+    configure_command = "icu4c/source/configure",
+    configure_options = [
+        "--enable-option-checking",
+        "--enable-static",
+        "--enable-tools",
+        "--disable-draft",
+        "--disable-dyload",
+        "--disable-extras",
+        "--disable-icuio",
+        "--disable-plugins",
+        "--disable-samples",
+        "--disable-shared",
+        "--disable-tests",
+        "--with-data-packaging=static",
+    ],
+    data = ["@com_github_unicode_org_icu//:all"],
+    env = {
+        "CXXFLAGS": "-fPIC -DU_CHARSET_IS_UTF8=1 -DU_USING_ICU_NAMESPACE=0 -DUCONFIG_ONLY_HTML_CONVERSION=1 -DUCONFIG_NO_LEGACY_CONVERSION=1 -DUCONFIG_NO_BREAK_ITERATION=1 -DUCONFIG_NO_COLLATION=1 -DUCONFIG_NO_FORMATTING=1 -DUCONFIG_NO_TRANSLITERATION=1 -DUCONFIG_NO_REGULAR_EXPRESSIONS=1",
+        "CFLAGS": "-fPIC",
+        "LIBS": "-l:libstdc++.a",
+        "ICU_DATA_FILTER_FILE": "$(execpath //bazel/foreign_cc:icu_data_filter.json)",
+    },
+    lib_source = "@com_github_unicode_org_icu//:all",
+    out_static_libs = [
+        "libicuuc.a",
+        "libicudata.a",
+    ],
+    tags = ["skip_on_windows"],
+    alwayslink = True,
+)
+
+cc_library(
+    name = "unicode_icu",
+    tags = ["skip_on_windows"],
+    # Can not be used for the core dataplane due to security concerns
+    visibility = ["//contrib/language/filters/http/source:__pkg__"],
+    deps = ["unicode_icu_build"],
+)
+
 envoy_cmake(
     name = "libsxg",
     cache_entries = {
