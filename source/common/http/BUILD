@@ -502,6 +502,7 @@ envoy_cc_library(
         "//source/common/common:logger_lib",
         "//source/common/runtime:runtime_features_lib",
         "@com_googlesource_googleurl//url",
+        "@com_github_unicode_org_icu//:all",
     ],
 )
 
