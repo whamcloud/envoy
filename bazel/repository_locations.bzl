@@ -898,6 +898,9 @@ REPOSITORY_LOCATIONS_SPEC = dict(
         cpe = "N/A",
         #license = "googleurl",
         #license_url = "https://quiche.googlesource.com/googleurl/+/{version}/LICENSE",
+        deps = [
+             "//bazel/foreign_cc:unicode_icu"
+        ]
     ),
     com_google_cel_cpp = dict(
         project_name = "Common Expression Language (CEL) C++ library",

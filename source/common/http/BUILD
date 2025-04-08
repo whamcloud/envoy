@@ -502,7 +502,7 @@ envoy_cc_library(
         "//source/common/common:logger_lib",
         "//source/common/runtime:runtime_features_lib",
         "@com_googlesource_googleurl//url",
-        "//bazel/foreign_cc:unicode_icu_build",
+        "//bazel/foreign_cc:unicode_icu",
     ],
 )
 

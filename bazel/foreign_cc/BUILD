@@ -4,6 +4,8 @@ load("@rules_foreign_cc//foreign_cc:configure.bzl", "configure_make")
 
 licenses(["notice"])  # Apache 2
 
+exports_files(["icu_data_filter.json"])
+
 envoy_package()
 
 # autotools packages are unusable on Windows as-is
@@ -143,8 +145,6 @@ configure_make(
 cc_library(
     name = "unicode_icu",
     tags = ["skip_on_windows"],
-    # Can not be used for the core dataplane due to security concerns
-    visibility = ["//contrib/language/filters/http/source:__pkg__"],
     deps = ["unicode_icu_build"],
 )
 
