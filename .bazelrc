@@ -58,6 +58,9 @@ build:clang --linkopt=-fuse-ld=lld
 build:clang-pch --spawn_strategy=local
 build:clang-pch --define=ENVOY_CLANG_PCH=1
 
+# Disable ICU linking for googleurl.
+build --@com_googlesource_googleurl//build_config:system_icu=0
+
 # Basic ASAN/UBSAN that works for gcc
 build:asan --action_env=ENVOY_ASAN=1
 build:asan --config=sanitizer
